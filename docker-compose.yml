@@ -1,0 +1,22 @@
+version: "3.8"
+
+services: 
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    # depends_on:
+      # - backend
+  # backend:
+  #   build: ./backend
+  #   ports:
+  #     - "" #Cambiar el puerto dependiendo de la API
+  #   volumes:
+  #     - ./backend:/app
+  #     - /app/node_modules
+  #   environment: # ================ Variables de entorno ================= #
+  #     - MONGO_URI=mongodb://database:27017/mydatabase
+  # database: #De momento no está configurada aquí
