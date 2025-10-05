@@ -1,24 +1,37 @@
 import { useState } from "react";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./css/App.css";
+import Header from "./components/common/Header";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [adminAuthenticated, setAdminAuthenticated] = useState(false);
+  const [userAuthenticated, setUserAuthenticated] = useState(false);
 
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Header />} />
+        <Route path="/login" element={"Este es el login"} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute isAuthenticated={adminAuthenticated}>
+              "Admin"
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute isAuthenticated={userAuthenticated}>
+              "Usuario registrado"
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
