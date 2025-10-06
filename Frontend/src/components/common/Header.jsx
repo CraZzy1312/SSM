@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 // CS = Cerrar Sesión  -> Cerrar sesión y redirigir /   (home)
 // MR = Mis Reservas   -> Redirigir a /user/misreservas
 
-function Header({ IS = false, CS = true, MR = true }) {
+function Header({ IS = false, CS = true, MR = false }) {
   const [estilo, setEstilo] = useState({});
   const navigate = useNavigate();
 

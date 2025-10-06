@@ -1,0 +1,29 @@
+.estados_container {
+  background-color: #2c444c;
+  width: 13vw;
+  height: 37vh;
+  font-size: 2.2vh;
+  color: white;
+  border-radius: 1.7vw;
+  padding-top: 0.5vh;
+}
+
+.estado_tittle {
+  display: flex;
+  justify-content: center;
+}
+
+.estado_item {
+  margin-top: 3vh;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  /* background-color: blue; */
+  padding-left: 1.5vw;
+  font-size: 1.9vh;
+}
+
+.circle_color {
+  width: 9%;
+  margin-right: 2%;
+}
