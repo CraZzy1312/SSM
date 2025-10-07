@@ -1,0 +1,6 @@
+.calendar_combo_container {
+  padding-left: 10%;
+  /* background-color: yellow; */
+  display: flex;
+  align-items: center;
+}
