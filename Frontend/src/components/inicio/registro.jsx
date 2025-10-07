@@ -1,7 +1,9 @@
 import "../../css/registro.css";
 import logo from "../../assets/logo_ADI_SM.png";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
+  const navigate = useNavigate();
   return (
     <div className="register-page">
       <div className="register-container">
@@ -28,10 +30,13 @@ export const Register = () => {
           <button className="btn-primary">Registrarse</button>
 
           <p className="login-link">
-            ¿Ya tienes cuenta? <span>Inicia sesión</span>
+            ¿Ya tienes cuenta?{" "}
+            <span onClick={() => navigate("/login")}>Inicia sesión</span>
           </p>
 
-          <button className="btn-secondary">Volver</button>
+          <button className="btn-secondary" onClick={() => navigate("/")}>
+            Volver
+          </button>
         </div>
       </div>
     </div>

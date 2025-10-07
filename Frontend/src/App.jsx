@@ -24,7 +24,7 @@ function App() {
           path="/admin"
           element={
             <ProtectedRoute isAuthenticated={adminAuthenticated}>
-              <Header />
+              <Header CS={true} />
               <AdminMain />
             </ProtectedRoute>
           }

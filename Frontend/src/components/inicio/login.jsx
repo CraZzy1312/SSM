@@ -1,7 +1,9 @@
 import "../../css/login.css";
 import logo from "../../assets/logo_ADI_SM.png";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
   return (
     <div className="login-page">
       <div className="login-container">
@@ -22,13 +24,18 @@ export const Login = () => {
 
           <p className="forgot-password">Olvidé mi contraseña</p>
 
-          <button className="btn-primary">Iniciar Sesión</button>
+          <button className="btn-primary" onClick={() => navigate("/admin")}>
+            Iniciar Sesión
+          </button>
 
           <p className="register-link">
-            ¿No tienes cuenta? <span>Regístrate</span>
+            ¿No tienes cuenta?{" "}
+            <span onClick={() => navigate("/registro")}>Regístrate</span>
           </p>
 
-          <button className="btn-secondary">Volver</button>
+          <button className="btn-secondary" onClick={() => navigate("/")}>
+            Volver
+          </button>
         </div>
       </div>
     </div>

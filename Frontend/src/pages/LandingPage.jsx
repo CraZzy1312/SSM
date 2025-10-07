@@ -7,7 +7,7 @@ import Footer from "../components/landing/Footer";
 const LandingPage = () => {
   return (
     <div className="landing-page">
-      <Header />
+      <Header IS={true} />
       <Hero />
       <SobreNosotros />
       <Servicios />

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 // CS = Cerrar Sesión  -> Cerrar sesión y redirigir /   (home)
 // MR = Mis Reservas   -> Redirigir a /user/misreservas
 
-function Header({ IS = false, CS = true, MR = false }) {
+function Header({ IS = false, CS = false, MR = false }) {
   const [estilo, setEstilo] = useState({});
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ function Header({ IS = false, CS = true, MR = false }) {
         <div className="button_container" style={estilo}>
           {IS ? (
             <button
-              style={{ backgroundColor: "#5ac00c" }}
+              style={{ backgroundColor: "#5ac00c", cursor: "pointer" }}
               onClick={() => {
                 navigate("/login");
               }}
@@ -35,7 +35,7 @@ function Header({ IS = false, CS = true, MR = false }) {
           ) : null}
           {MR ? (
             <button
-              style={{ backgroundColor: "#757575" }}
+              style={{ backgroundColor: "#757575", cursor: "pointer" }}
               onClick={() => {
                 navigate("/user/misreservas");
               }}
@@ -45,7 +45,7 @@ function Header({ IS = false, CS = true, MR = false }) {
           ) : null}
           {CS ? (
             <button
-              style={{ backgroundColor: "#c00f0c" }}
+              style={{ backgroundColor: "#c00f0c", cursor: "pointer" }}
               onClick={() => {
                 navigate("/");
               }}
