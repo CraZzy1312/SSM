@@ -1,0 +1,158 @@
+/* ======== CONTENEDOR PRINCIPAL ======== */
+.login-page {
+  display: flex;
+  justify-content: center; /* centrado horizontal */
+  align-items: center; /* centrado vertical */
+  background: linear-gradient(135deg, #f4f7fe 0%, #eaf0ff 100%);
+  min-height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* ======== CONTENEDOR GENERAL ======== */
+.login-container {
+  display: flex;
+  flex-direction: column; /* logo arriba, formulario abajo */
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  padding: 50px 60px;
+  max-width: 420px;
+  width: 100%;
+}
+
+/* ======== LOGO ======== */
+.login-logo {
+  width: 100px; /* más pequeño para disimular la baja calidad */
+  height: auto;
+  margin-bottom: 15px;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* ======== TARJETA / FORMULARIO ======== */
+.login-card {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e1e1e;
+  margin-bottom: 10px;
+}
+
+/* ======== INPUTS ======== */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.input-group input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  color: #1e1e1e;
+  transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: #4237bc;
+  box-shadow: 0 0 0 3px rgba(66, 55, 188, 0.15);
+  outline: none;
+}
+
+/* ======== LINKS ======== */
+.forgot-password {
+  font-size: 13px;
+  color: #666;
+  text-align: right;
+  cursor: pointer;
+}
+
+.register-link {
+  font-size: 14px;
+  color: #767676;
+  text-align: center;
+}
+
+.register-link span {
+  font-weight: 700;
+  cursor: pointer;
+  color: #4237bc;
+  text-decoration: underline;
+}
+
+/* ======== BOTONES ======== */
+.btn-primary {
+  background-color: #4237bc;
+  color: #fff;
+  padding: 12px 0;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #362fa4;
+}
+
+.btn-secondary {
+  background-color: #2c2c2c;
+  color: #fff;
+  padding: 12px 0;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #1a1a1a;
+}
+
+/* ======== SELECCIÓN DE ROL ======== */
+.role-selection {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin-top: 10px;
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.role span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #767676;
+}
+
+.role .line {
+  width: 45px;
+  height: 1px;
+  background-color: #d9d9d9;
+}
