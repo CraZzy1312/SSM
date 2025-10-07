@@ -1,0 +1,85 @@
+.servicios {
+  width: 100%;
+  background-color: #fff;
+  padding: 80px 20px;
+}
+
+.servicios-container {
+  max-width: 1366px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.servicios-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+}
+
+.servicios-header .line {
+  flex: 1;
+  height: 2px;
+  background-color: #5379ae;
+}
+
+.servicios-header h2 {
+  font-family: "REM-Bold", Helvetica;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.servicios-subtitle {
+  font-family: "Poppins", Helvetica;
+  font-size: 16px;
+  text-align: center;
+  color: #424242;
+  max-width: 600px;
+}
+
+.servicios-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.servicio-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 32px 24px;
+  max-width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.servicio-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.servicio-card h3 {
+  font-family: "REM-Bold", Helvetica;
+  font-size: 20px;
+  color: #5379ae;
+  margin: 0;
+}
+
+.servicio-card p {
+  font-family: "Poppins", Helvetica;
+  font-size: 14px;
+  color: #424242;
+  line-height: 1.4;
+  margin: 0;
+}
