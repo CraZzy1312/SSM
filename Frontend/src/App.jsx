@@ -2,11 +2,14 @@ import { useState } from "react";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./css/App.css";
+
+import Header from "./components/common/Header";
+import AdminMain from "./pages/AdminMain";
 import LandingPage from "./pages/LandingPage";
 
 function App() {
   const [count, setCount] = useState(0);
-  const [adminAuthenticated, setAdminAuthenticated] = useState(false);
+  const [adminAuthenticated, setAdminAuthenticated] = useState(true);
   const [userAuthenticated, setUserAuthenticated] = useState(false);
 
   return (
@@ -18,7 +21,8 @@ function App() {
           path="/admin"
           element={
             <ProtectedRoute isAuthenticated={adminAuthenticated}>
-              "Admin"
+              <Header />
+              <AdminMain />
             </ProtectedRoute>
           }
         />
