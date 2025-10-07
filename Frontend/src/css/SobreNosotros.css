@@ -1,0 +1,73 @@
+.sobre-nosotros {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  padding: 50px 80px; /* mismo padding que hero */
+  width: 100%; /* ocupa todo el ancho disponible */
+  background-color: #ffffff; /* fondo blanco */
+  box-sizing: border-box; /* para que el padding no aumente el ancho */
+}
+
+.sobre-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 1366px; /* igual que hero */
+}
+
+.sobre-header h2 {
+  font-family: "REM-Bold", Helvetica;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.line {
+  height: 2px;
+  flex: 1;
+  background-color: #5379ae;
+}
+
+.sobre-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: 100%;
+  max-width: 1366px; /* igual que hero */
+}
+
+.bloque {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.bloque .texto {
+  flex: 1;
+  min-width: 280px;
+}
+
+.bloque h3 {
+  font-family: "REM-Bold", Helvetica;
+  font-size: 28px;
+  color: #5379ae;
+  margin-bottom: 12px;
+}
+
+.bloque p {
+  font-family: "Poppins", Helvetica;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #424242;
+}
+
+.imagen-principal {
+  flex: 1;
+  max-width: 500px;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+}

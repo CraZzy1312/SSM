@@ -2,7 +2,6 @@ import { useState } from "react";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./css/App.css";
-import Header from "./components/common/Header";
 import LandingPage from "./pages/LandingPage";
 
 function App() {
