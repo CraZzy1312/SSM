@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssm-frontend-deployment
+  labels:
+    app: ssm-client
+spec:
+  # Deseamos 2 réplicas del frontend (Nginx)
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ssm-client
+  template:
+    metadata:
+      labels:
+        app: ssm-client
+    spec:
+      containers:
+      - name: ssm-frontend-container
+        image: ssm-frontend:latest
+        ports:
+        - containerPort: 80 # Puerto de Nginx
+        
+        # DEFINICIÓN DE RECURSOS: Nginx es muy ligero
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
+            
+        imagePullPolicy: Never
