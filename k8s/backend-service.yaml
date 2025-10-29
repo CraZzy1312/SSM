@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssm-backend-service
+spec:
+  # Selecciona todos los pods que tengan la etiqueta 'app: ssm-api'
+  selector:
+    app: ssm-api
+  ports:
+    - protocol: TCP
+      port: 3000      # Puerto que expone el servicio (DNS interno: ssm-backend-service:3000)
+      targetPort: 3000 # Puerto del contenedor
+  type: ClusterIP    # Solo accesible dentro del clúster (para uso del Frontend)

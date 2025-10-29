@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssm-backend-deployment
+  labels:
+    app: ssm-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ssm-api
+  template:
+    metadata:
+      labels:
+        app: ssm-api
+    spec:
+      containers:
+      - name: ssm-backend-container
+        image: aaronortijimn/apissm:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MONGO_URI
+          # ⚠️ REEMPLAZAR: Cadena de conexión real de MongoDB Atlas
+          value: "mongodb+srv://esteban01cortes:cortespassword@clustersmt.27xywuz.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSMT"
+        - name: PORT
+          value: "3000"
+        - name: CORREO
+          value: "po6403550@gmail.com"
+        - name: PASSWORD
+          value: "qpbx hqqp ioas eitk"
+        - name: NOMBRE_REMITENTE
+          value: Sistema del SSM
+        
+        resources:
+          requests:
+            cpu: "100m"     # Solicita 0.1 de un núcleo
+            memory: "128Mi" # Solicita 128 Megabytes
+          limits:
+            cpu: "200m"     # Límite máximo de 0.2 de un núcleo
+            memory: "256Mi" # Límite máximo de 256 Megabytes
+            
+        imagePullPolicy: Never 
