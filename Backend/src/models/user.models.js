@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-
 import bycrypt from "bcryptjs";
 
 
 export const userSchema = new mongoose.Schema({
     nombre: { type: String },
     correo: {  type: String, required: true, unique: true },
-    contraseña: { type: String, required: true },
+    contraseña: { type: String, required: true, select: false },
     isAdmin: { type: Boolean, required: true },
 });
 
