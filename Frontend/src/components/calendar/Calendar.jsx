@@ -10,6 +10,9 @@ import {
 } from "date-fns";
 import { es } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useNavigate } from "react-router-dom";
+
+// Funcion de manejo del calendario
 
 // Configuración del localizer
 const locales = { "es-CR": es };
@@ -120,6 +123,10 @@ const CustomHeader = ({ label }) => (
 );
 
 export default function Calendario() {
+  const navigate = useNavigate();
+  const mostrar_evento = () => {
+    navigate("/informacion-evento");
+  };
   const [events] = useState([
     {
       title: "Reservado",
@@ -168,19 +175,19 @@ export default function Calendario() {
     };
 
     if (isReserved) {
-      style = { ...style, backgroundColor: "#7EEA7E" }; // verde claro para reservados
+      style = { ...style, backgroundColor: "#7EEA7E", cursor: "pointer" }; // verde claro para reservados
     }
 
     if (isCanceled) {
-      style = { ...style, backgroundColor: "#F58284" }; // rojo claro para cancelados
+      style = { ...style, backgroundColor: "#F58284", cursor: "pointer" }; // rojo claro para cancelados
     }
 
     if (isNotPaid) {
-      style = { ...style, backgroundColor: "#78CAD2" }; // azul claro para pago pendiente
+      style = { ...style, backgroundColor: "#78CAD2", cursor: "pointer" }; // azul claro para pago pendiente
     }
 
     if (isSolitude) {
-      style = { ...style, backgroundColor: "#F3F871" }; // amarillo claro para solicitudes
+      style = { ...style, backgroundColor: "#F3F871", cursor: "pointer" }; // amarillo claro para solicitudes
     }
 
     if (isToday(date)) {
@@ -204,6 +211,7 @@ export default function Calendario() {
     >
       <a style={{ color: "white" }}>Seleccione un día para revisar</a>
       <Calendar
+        selectable
         localizer={localizer}
         culture="es-CR"
         startAccessor="start"
@@ -228,6 +236,16 @@ export default function Calendario() {
         }}
         dayPropGetter={dayPropGetter}
         date={currentDate} // permite cambiar de mes
+        onSelectSlot={(slotInfo) => {
+          const eventoDia = events.find((ev) =>
+            isSameDay(ev.start, slotInfo.start)
+          );
+          if (eventoDia) {
+            mostrar_evento();
+          } else {
+            // No hacer nada si no hay evento
+          }
+        }}
       />
     </div>
   );

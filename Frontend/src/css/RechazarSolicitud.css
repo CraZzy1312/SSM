@@ -1,0 +1,56 @@
+.main_container {
+  width: 30%;
+  height: 25%;
+}
+
+.parte_superior {
+  padding: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  background-color: #5379ae;
+}
+
+.salir_boton {
+  width: 10%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.enviar_boton {
+  background-color: #14ae5c;
+  margin-top: 0;
+  width: 40%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.cuerpo_modal_rechazo {
+  background-color: #cccacc;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.motivo_rechazo {
+  height: 60%;
+  font-family: REM;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.conjunto_botones {
+  margin-top: 2%;
+  width: 80%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

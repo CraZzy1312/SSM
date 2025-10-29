@@ -1,0 +1,37 @@
+.main_container {
+  width: 30%;
+  height: 20%;
+}
+
+.parte_superior {
+  padding: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  background-color: #5379ae;
+}
+
+.salir_boton {
+  width: 10%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.aceptar_boton {
+  background-color: #14ae5c;
+  margin-top: 6%;
+  width: 30%;
+  height: 20%;
+  cursor: pointer;
+}
+
+.cuerpo_modal {
+  background-color: #cccacc;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

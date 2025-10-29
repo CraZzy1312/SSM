@@ -1,0 +1,57 @@
+.main_contenedor {
+  margin-left: 10.5%;
+}
+
+.title_consulta {
+  margin-left: 5%;
+  font-size: 2vw;
+}
+
+.contenedor_informacion {
+  width: 87%;
+  display: flex;
+  flex-direction: column;
+}
+
+.borde_superior {
+  background-color: #f3f364;
+  border-radius: 15px 15px 0 0;
+  padding: 1%;
+}
+
+.cuerpo {
+  padding: 1%;
+  background-color: #cccacc;
+  border-radius: 0 0 15px 15px;
+  height: 52vh;
+}
+
+.datos {
+  margin-left: 3%;
+}
+
+.subtitulo {
+  font-size: 1.2vw;
+}
+
+.contenedor_botones {
+  margin-top: 2vh;
+  width: 87%;
+  height: 8vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.volver {
+  width: 15%;
+  height: 65%;
+}
+
+.par_botones {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
