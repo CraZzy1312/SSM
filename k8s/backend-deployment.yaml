@@ -16,15 +16,22 @@ spec:
     spec:
       containers:
       - name: ssm-backend-container
-        image: ssm-backend:latest 
+        image: aaronortijimn/apissm:latest
         ports:
         - containerPort: 3000
         env:
         - name: MONGO_URI
           # ⚠️ REEMPLAZAR: Cadena de conexión real de MongoDB Atlas
           value: "mongodb+srv://esteban01cortes:cortespassword@clustersmt.27xywuz.mongodb.net/?retryWrites=true&w=majority&appName=ClusterSMT"
+        - name: PORT
+          value: "3000"
+        - name: CORREO
+          value: "po6403550@gmail.com"
+        - name: PASSWORD
+          value: "qpbx hqqp ioas eitk"
+        - name: NOMBRE_REMITENTE
+          value: Sistema del SSM
         
-        # 🌟 NUEVA SECCIÓN: Definición de recursos (para eliminar la advertencia)
         resources:
           requests:
             cpu: "100m"     # Solicita 0.1 de un núcleo

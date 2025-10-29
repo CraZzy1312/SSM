@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user.routes.js";
 import loginRoutes from "./routes/login.routes.js";
+import  eventRoutes  from "./routes/event.routes.js";
 
 dotenv.config(); // Se usa para cargar las variables de entorno.
 
@@ -12,6 +13,7 @@ const port = process.env.PORT || 9000; // Se usa para definir el puerto en el qu
 app.use(express.json()); // Se usa para que el servidor pueda entender los datos en formato JSON.
 app.use(userRoutes); // Se usan las rutas definidas en admin.routes.js
 app.use(loginRoutes); // Se usan las rutas definidas en login.routes.js
+app.use(eventRoutes); // Se usan las rutas definidas en login.routes.js
 // Conexión a la base de datos
 mongoose
     .connect(process.env.MONGODB_URI)
