@@ -7,8 +7,8 @@ export const eventSchema = new mongoose.Schema({
     fechaSolicitud: { type: Date, required: true },
     descripcionEvento: { type: String, required: true },
     fechaEvento: { type: Date, required: true },
-    estado: { type: String, required: true, enum: ["pendiente", "pago pendiente", "aprobado", "cancelado", "rechazado"]
-        , default: "pendiente" },
+    estado: { type: String, required: true, enum: ["Solicitud", "Pago pendiente", "Reservado", "Cancelada"]
+        , default: "Solicitud" },
 });
 
 export const Event = mongoose.model("Event", eventSchema);

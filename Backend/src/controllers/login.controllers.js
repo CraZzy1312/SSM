@@ -20,7 +20,7 @@ export const loginUser = async (req, res) => {
             { expiresIn: "1d" } // Duracion del token (ej. 1 dia)
         );
 
-        const resultUser = { nombre: user.nombre, correo: user.correo, isAdmin: user.isAdmin };
+        const resultUser = { id_user: user._id, nombre: user.nombre, correo: user.correo, isAdmin: user.isAdmin };
 
         res.json({ 
             success: true, 

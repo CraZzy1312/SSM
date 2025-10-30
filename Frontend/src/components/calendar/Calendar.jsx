@@ -12,6 +12,11 @@ import { es } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useNavigate } from "react-router-dom";
 
+const normalizarFecha = (fecha) => {
+  const f = new Date(fecha);
+  return new Date(f.getFullYear(), f.getMonth(), f.getDate());
+};
+
 // Funcion de manejo del calendario
 
 // Configuración del localizer
@@ -122,51 +127,40 @@ const CustomHeader = ({ label }) => (
   </div>
 );
 
-export default function Calendario() {
+export default function Calendario({ events = [{}] }) {
   const navigate = useNavigate();
   const mostrar_evento = () => {
     navigate("/informacion-evento");
   };
-  const [events] = useState([
-    {
-      title: "Reservado",
-      start: new Date(2025, 9, 15),
-      end: new Date(2025, 9, 15),
-    },
-    {
-      title: "Cancelado",
-      start: new Date(2025, 9, 20),
-      end: new Date(2025, 9, 20),
-    },
-    {
-      title: "Pago pendiente",
-      start: new Date(2025, 9, 25),
-      end: new Date(2025, 9, 25),
-    },
-    {
-      title: "Solicitud",
-      start: new Date(2025, 9, 10),
-      end: new Date(2025, 9, 10),
-    },
-  ]);
 
   const [currentDate, setCurrentDate] = useState(new Date());
 
   // Función para colorear los días
   const dayPropGetter = (date) => {
     const isReserved = events.some(
-      (event) => isSameDay(event.start, date) && event.title === "Reservado"
+      (event) =>
+        isSameDay(new Date(event.fechaEvento), date) &&
+        event.estado === "Reservado"
     );
+
     const isCanceled = events.some(
-      (event) => isSameDay(event.start, date) && event.title === "Cancelado"
+      (event) =>
+        isSameDay(new Date(event.fechaEvento), date) &&
+        event.estado === "Rechazado"
     );
+
     const isNotPaid = events.some(
       (event) =>
-        isSameDay(event.start, date) && event.title === "Pago pendiente"
+        isSameDay(new Date(event.fechaEvento), date) &&
+        event.estado === "pendiente"
     );
+
     const isSolitude = events.some(
-      (event) => isSameDay(event.start, date) && event.title === "Solicitud"
+      (event) =>
+        isSameDay(new Date(event.fechaEvento), date) &&
+        event.estado === "Solicitud"
     );
+
     const isCurrentMonth = date.getMonth() === currentDate.getMonth();
 
     // Fondo por defecto: blanco si es del mes actual, gris si no
@@ -238,10 +232,15 @@ export default function Calendario() {
         date={currentDate} // permite cambiar de mes
         onSelectSlot={(slotInfo) => {
           const eventoDia = events.find((ev) =>
-            isSameDay(ev.start, slotInfo.start)
+            isSameDay(
+              normalizarFecha(ev.fechaEvento),
+              normalizarFecha(slotInfo.start)
+            )
           );
           if (eventoDia) {
+            localStorage.removeItem("evento");
             mostrar_evento();
+            localStorage.setItem("evento", JSON.stringify(eventoDia));
           } else {
             // No hacer nada si no hay evento
           }

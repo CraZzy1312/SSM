@@ -2,10 +2,10 @@ import "../../css/CalendarCombo.css";
 import Estados from "./Estados";
 import Calendario from "./Calendar";
 
-function CalendarCombo() {
+function CalendarCombo({ eventos }) {
   return (
     <div className="calendar_combo_container">
-      <Calendario></Calendario>
+      <Calendario events={eventos}></Calendario>
       <Estados></Estados>
     </div>
   );

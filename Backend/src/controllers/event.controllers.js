@@ -53,8 +53,9 @@ export const getDataOfEvent = async (req, res) => {
 export const updateStateEvent = async (req, res) => {
     const { id } = req.params;
     const { newState } = req.body;
+    console.log(newState);
     try {
-         const event = await Event.findByIdAndUpdate(id, { $set: {estado: newState }}, {new: true});
+         const event = await Event.findByIdAndUpdate({_id: id}, { $set: {estado: newState }}, {new: true});
          if (!event) {
             return res.status(404).json({ success: false, message: "Solicitud de evento no encontrada" });
          }

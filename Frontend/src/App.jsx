@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import "./css/App.css";
 
 import Header from "./components/common/Header";
@@ -9,6 +10,8 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./components/inicio/login";
 import Registro from "./components/inicio/registro";
 import PanelInformacion from "./components/common/PanelInformacion";
+
+import { getAllEvents } from "./funciones.js";
 
 /* Eliminar lo que esté debajo de esto*/
 /*------------------------------------ */
@@ -23,19 +26,44 @@ function App() {
   const [count, setCount] = useState(0);
   const [adminAuthenticated, setAdminAuthenticated] = useState(true);
   const [userAuthenticated, setUserAuthenticated] = useState(false);
+  const [eventos, setEventos] = useState([{}]);
+  const [recargar, setRecargar] = useState(false);
+
+  // Actualización del objeto eventos según quien los necesite
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllEvents();
+      setEventos(data);
+    };
+
+    fetchData();
+    console.log(eventos);
+  }, [recargar]); // Se ejecuta al inicio y cada vez que cambie "recargar"
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={
+            <Login
+              setAdminAuthenticated={setAdminAuthenticated}
+              setUserAuthenticated={setUserAuthenticated}
+            />
+          }
+        />
         <Route path="/registro" element={<Registro />} />
         <Route
           path="/admin"
           element={
             <ProtectedRoute isAuthenticated={adminAuthenticated}>
               <Header CS={true} />
-              <AdminMain />
+              <AdminMain
+                eventos={eventos}
+                setRecargar={setRecargar}
+                recargar={recargar}
+              />
             </ProtectedRoute>
           }
         />
@@ -55,6 +83,8 @@ function App() {
               <PanelInformacion
                 showModal={showModal}
                 setModal={setShowModal}
+                setRecargar={setRecargar}
+                recargar={recargar}
               ></PanelInformacion>
             </div>
           }
