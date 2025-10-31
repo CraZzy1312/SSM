@@ -5,14 +5,21 @@ import "../../css/SeguroDe.css";
 export default function ({
   isOpen = true,
   onClose,
-  mensaje = "¿Está seguro?",
+  mensaje,
+  setRespuestaModal,
 }) {
   if (!isOpen) return null;
   return (
     <div className="main_container">
       <div className="parte_superior">
         Rechazar solicitud
-        <button className="salir_boton" onClick={() => onClose(false)}>
+        <button
+          className="salir_boton"
+          onClick={() => {
+            setRespuestaModal(false);
+            onClose(false);
+          }}
+        >
           <b>X</b>
         </button>
       </div>
@@ -26,11 +33,23 @@ export default function ({
               height: "100%",
               cursor: "pointer",
             }}
-            onClick={() => onClose(false)}
+            onClick={() => {
+              setRespuestaModal(false);
+              onClose(false);
+            }}
           >
             No
           </button>
-          <button className="si_boton"> Sí</button>
+          <button
+            className="si_boton"
+            onClick={() => {
+              setRespuestaModal(true);
+              onClose(false);
+            }}
+          >
+            {" "}
+            Sí
+          </button>
         </div>
       </div>
     </div>

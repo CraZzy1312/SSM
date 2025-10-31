@@ -1,7 +1,8 @@
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useState, useTransition } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ConfirmacionModal from "./ConfirmacionModal.jsx";
+import SeguroDe from "./SeguroDe.jsx";
 import "../../css/PanelInformacion.css";
 
 import { cambiarEstado } from "../../funciones.js";
@@ -57,6 +58,7 @@ function PanelInformacion({
   estado = "Reservado",
   showModal,
   setModal,
+  adminAuthenticated,
   setRecargar,
   recargar,
 }) {
@@ -65,6 +67,45 @@ function PanelInformacion({
   const [textoVerde, setTextoVerde] = useState("");
   const [evento, setEvento] = useState({});
   const [color, setColor] = useState("");
+  const [estadoNuevo, setEstadoNuevo] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const handleClickVerde = () => {
+    let nuevoEstado = "";
+    let nuevoMensaje = "";
+
+    if (textoVerde === "Aceptar") {
+      nuevoEstado = "Pago pendiente";
+      nuevoMensaje = "¿Está seguro de aceptar la solicitud?";
+    } else if (textoVerde === "Pago realizado") {
+      nuevoEstado = "Reservado";
+      nuevoMensaje = "¿Está seguro que el pago se realizó?";
+    }
+
+    setEstadoNuevo(nuevoEstado);
+    setMensaje(nuevoMensaje);
+    setModal(true); // abre el modal
+  };
+
+  const handleClickRojo = () => {
+    setMensaje("¿Está seguro de rechazar la reserva?");
+    setEstadoNuevo("Rechazada");
+    setModal(true);
+  };
+
+  const handleConfirm = async (respuesta) => {
+    setModal(false);
+
+    if (!respuesta) return; // si cancela, no hace nada
+
+    const ok = await cambiarEstado(evento._id, estadoNuevo);
+    if (ok) {
+      alert("Cambio de estado exitoso");
+      navigate("/admin");
+    } else {
+      alert("Hubo un error al cambiar el estado");
+    }
+  };
 
   const navigate = useNavigate();
   const volver = () => {
@@ -79,12 +120,15 @@ function PanelInformacion({
 
   useEffect(() => {
     if (!evento) return; // Si todavía no hay evento, salir
+    if (!adminAuthenticated) {
+      return;
+    }
     if (evento.estado == "Solicitud") {
       // #F3F364
       setColor("#F3F364");
       setTextoVerde("Aceptar");
       setTextoRojo("Rechazar");
-    } else if (evento.estado == "pendiente") {
+    } else if (evento.estado == "Pago pendiente") {
       // #78CAD2
       setColor("#78CAD2");
       setTextoVerde("Pago realizado");
@@ -142,32 +186,34 @@ function PanelInformacion({
           </button>
           <div className="par_botones">
             {textoRojo ? (
-              <button
-                style={{
-                  backgroundColor: "red",
-                  cursor: "pointer",
-                  width: "40%",
-                  height: "65%",
-                }}
-              >
-                {textoRojo}
-              </button>
+              <>
+                <button
+                  style={{
+                    backgroundColor: "red",
+                    cursor: "pointer",
+                    width: "40%",
+                    height: "65%",
+                  }}
+                  onClick={handleClickRojo}
+                >
+                  {textoRojo}
+                </button>
+              </>
             ) : null}
             {textoVerde ? (
-              <button
-                style={{
-                  backgroundColor: "green",
-                  cursor: "pointer",
-                  height: "65%",
-                  width: "40%",
-                }}
-                onClick={async () => {
-                  alert(evento._id);
-                  cambiarEstado(evento._id, "Solicitud");
-                }}
-              >
-                {textoVerde}
-              </button>
+              <>
+                <button
+                  style={{
+                    backgroundColor: "green",
+                    cursor: "pointer",
+                    height: "65%",
+                    width: "40%",
+                  }}
+                  onClick={handleClickVerde}
+                >
+                  {textoVerde}
+                </button>
+              </>
             ) : null}
           </div>
         </div>

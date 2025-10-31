@@ -22,7 +22,7 @@ import SeguroDe from "./components/common/SeguroDe.jsx";
 
 /* Dejar lo demás normal */
 function App() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [count, setCount] = useState(0);
   const [adminAuthenticated, setAdminAuthenticated] = useState(true);
   const [userAuthenticated, setUserAuthenticated] = useState(false);
@@ -85,6 +85,7 @@ function App() {
                 setModal={setShowModal}
                 setRecargar={setRecargar}
                 recargar={recargar}
+                adminAuthenticated={adminAuthenticated}
               ></PanelInformacion>
             </div>
           }
