@@ -88,15 +88,39 @@ export const rejectEvent = async (req, res) =>{
          return res.status(400).json({success: false, message: "No se encontro el evento ha rechazar"});
       }
       else{
-         const subject = "Se actualizo el estado del evento";
          const transporter = nodemailer.createTransport({service: "gmail", auth: {user: process.env.CORREO, pass: process.env.PASSWORD }});
-         const mailOptions = {from: {name: process.env.NOMBRE_REMITENTE, address: "po6403550@gmail.com"}, to: correo, subject: subject, text: reason};
+         const subject = "Actualización sobre su solicitud de evento";
+         const message = `
+         Estimado/a solicitante,
+
+         Lamentamos informarle que su solicitud para la reserva del evento programado para el día ${fecha} ha sido rechazada.
+
+         Motivo del rechazo:
+         ${reason}
+
+         Agradecemos su comprensión y le invitamos a comunicarse con nosotros si desea más información o desea realizar una nueva solicitud en otra fecha.
+
+         Atentamente,
+         ${process.env.NOMBRE_REMITENTE} 
+         Equipo de Coordinación de Eventos
+         `;
+
+         const mailOptions = {
+         from: {
+            name: process.env.NOMBRE_REMITENTE,
+            address: process.env.CORREO
+         },
+         to: correo,
+         subject,
+         text: message
+         };
          await transporter.sendMail(mailOptions);
          return res.status(200).json({ success: true, message: "Rechazo del evento de la fecha " + fecha , data: event});
          //TODO  Envio de un dato con un correo.
       }
    }
    catch(error){
+      console.log("Error: "+error.message)
       return res.status(402).json({ success: false, message: error.message || "Ocurrió un error al rechazar evento"});
    } 
 };

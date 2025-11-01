@@ -10,26 +10,26 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./components/inicio/login";
 import Registro from "./components/inicio/registro";
 import PanelInformacion from "./components/common/PanelInformacion";
+import NotFound from "./components/common/NotFound.jsx";
 
 import { getAllEvents } from "./funciones.js";
 
-/* Eliminar lo que esté debajo de esto*/
-/*------------------------------------ */
-
-import ConfirmacionModal from "./components/common/ConfirmacionModal.jsx";
-import RechazarSolicitud from "./components/common/RechazarSolicitud.jsx";
-import SeguroDe from "./components/common/SeguroDe.jsx";
-
-/* Dejar lo demás normal */
+// Código principal
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [count, setCount] = useState(0);
-  const [adminAuthenticated, setAdminAuthenticated] = useState(true);
+  const [adminAuthenticated, setAdminAuthenticated] = useState(false);
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [eventos, setEventos] = useState([{}]);
   const [recargar, setRecargar] = useState(false);
 
-  // Actualización del objeto eventos según quien los necesite
+  // Funcion para cerrar sesión (setea las variables en false)
+  const handleCerrarSesion = () => {
+    setAdminAuthenticated(false);
+    setUserAuthenticated(false);
+  };
+
+  // Carga los eventos de la bd a la variable eventos
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllEvents();
@@ -58,7 +58,11 @@ function App() {
           path="/admin"
           element={
             <ProtectedRoute isAuthenticated={adminAuthenticated}>
-              <Header CS={true} />
+              <Header
+                CS={true}
+                handleCerrarSesion={handleCerrarSesion}
+                isAdmin={adminAuthenticated}
+              />
               <AdminMain
                 eventos={eventos}
                 setRecargar={setRecargar}
@@ -79,7 +83,10 @@ function App() {
           path="/informacion-evento"
           element={
             <div>
-              <Header></Header>
+              <Header
+                isAdmin={adminAuthenticated}
+                handleCerrarSesion={handleCerrarSesion}
+              ></Header>
               <PanelInformacion
                 showModal={showModal}
                 setModal={setShowModal}
@@ -90,12 +97,7 @@ function App() {
             </div>
           }
         />
-        <Route
-          path="/test"
-          element={
-            <SeguroDe isOpen={showModal} onClose={setShowModal}></SeguroDe>
-          }
-        ></Route>
+        <Route path="*" element={<NotFound></NotFound>} />
       </Routes>
     </Router>
   );

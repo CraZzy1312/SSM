@@ -8,7 +8,13 @@ import { useNavigate } from "react-router-dom";
 // CS = Cerrar Sesión  -> Cerrar sesión y redirigir /   (home)
 // MR = Mis Reservas   -> Redirigir a /user/misreservas
 
-function Header({ IS = false, CS = false, MR = false }) {
+function Header({
+  IS = false,
+  CS = false,
+  MR = false,
+  handleCerrarSesion,
+  isAdmin = false,
+}) {
   const [estilo, setEstilo] = useState({});
   const navigate = useNavigate();
 
@@ -43,10 +49,11 @@ function Header({ IS = false, CS = false, MR = false }) {
               Mis Reservas
             </button>
           ) : null}
-          {CS ? (
+          {CS || isAdmin ? (
             <button
               style={{ backgroundColor: "#c00f0c", cursor: "pointer" }}
               onClick={() => {
+                handleCerrarSesion();
                 navigate("/");
               }}
             >

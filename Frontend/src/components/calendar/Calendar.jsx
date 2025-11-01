@@ -152,7 +152,7 @@ export default function Calendario({ events = [{}] }) {
     const isNotPaid = events.some(
       (event) =>
         isSameDay(new Date(event.fechaEvento), date) &&
-        event.estado === "pendiente"
+        event.estado === "Pago pendiente"
     );
 
     const isSolitude = events.some(

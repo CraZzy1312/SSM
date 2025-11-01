@@ -6,6 +6,9 @@ import SeguroDe from "./SeguroDe.jsx";
 import "../../css/PanelInformacion.css";
 
 import { cambiarEstado } from "../../funciones.js";
+import RechazarSolicitud from "./RechazarSolicitud.jsx";
+
+import { formatearFechaISO, rejectSolicitud } from "../../funciones.js";
 
 /* Definición de funciones async para los botones */
 
@@ -15,42 +18,6 @@ import { cambiarEstado } from "../../funciones.js";
 // Pago Realizado
 // Cancelar Reserva
 // Funcion de volver
-
-function formatearFechaISO(fechaISO) {
-  const dias = [
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miércoles",
-    "Jueves",
-    "Viernes",
-    "Sábado",
-  ];
-  const meses = [
-    "enero",
-    "febrero",
-    "marzo",
-    "abril",
-    "mayo",
-    "junio",
-    "julio",
-    "agosto",
-    "septiembre",
-    "octubre",
-    "noviembre",
-    "diciembre",
-  ];
-
-  // Convertimos el string ISO a Date
-  const fecha = new Date(fechaISO);
-
-  const diaSemana = dias[fecha.getDay()];
-  const dia = fecha.getDate();
-  const mes = meses[fecha.getMonth()];
-  const anio = fecha.getFullYear();
-
-  return `${diaSemana} ${dia} de ${mes} del ${anio}`;
-}
 
 // Funcion para el color del borde superior del cuadro y los tipos de boton
 
@@ -69,6 +36,8 @@ function PanelInformacion({
   const [color, setColor] = useState("");
   const [estadoNuevo, setEstadoNuevo] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [motivo, setMotivo] = useState("");
+  const [showMotivoRechazo, setShowMotivoRechazo] = useState(false);
 
   const handleClickVerde = () => {
     let nuevoEstado = "";
@@ -89,8 +58,22 @@ function PanelInformacion({
 
   const handleClickRojo = () => {
     setMensaje("¿Está seguro de rechazar la reserva?");
-    setEstadoNuevo("Rechazada");
-    setModal(true);
+    setEstadoNuevo("Rechazado");
+    setShowMotivoRechazo(true);
+  };
+
+  const handleReject = async (motivo, respuesta) => {
+    setShowMotivoRechazo(false);
+
+    if (!respuesta) return;
+
+    const ok = await rejectSolicitud(evento._id, estadoNuevo, motivo);
+    if (ok) {
+      alert("Cambio de estado exitoso");
+      navigate("/admin");
+    } else {
+      alert("Hubo un error al cambiar el estado");
+    }
   };
 
   const handleConfirm = async (respuesta) => {
@@ -148,6 +131,17 @@ function PanelInformacion({
 
   return (
     <div>
+      <RechazarSolicitud
+        isOpen={showMotivoRechazo}
+        onClose={setShowMotivoRechazo}
+        handleReject={handleReject}
+      />
+      <SeguroDe
+        isOpen={showModal}
+        onClose={setModal}
+        mensaje={mensaje}
+        setRespuestaModal={handleConfirm}
+      />
       <h1 className="title_consulta">Información de la reserva</h1>
       <div className="main_contenedor">
         <div className="contenedor_informacion">

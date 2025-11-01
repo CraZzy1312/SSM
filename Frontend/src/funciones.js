@@ -86,3 +86,61 @@ export const cambiarEstado = async (idEvento, newState) => {
     return false;
   }
 }
+
+
+export function formatearFechaISO(fechaISO) {
+  const dias = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+  ];
+  const meses = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
+
+  // Convertimos el string ISO a Date
+  const fecha = new Date(fechaISO);
+
+  const diaSemana = dias[fecha.getDay()];
+  const dia = fecha.getDate();
+  const mes = meses[fecha.getMonth()];
+  const anio = fecha.getFullYear();
+
+  return `${diaSemana} ${dia} de ${mes} del ${anio}`;
+}
+
+export const rejectSolicitud = async (idEvento, newState, motivo) => {
+  try {
+    const evento = JSON.parse(localStorage.getItem("evento"))
+    console.log("Esto es el evento: " +evento);
+    const fechaFormateada = formatearFechaISO(evento.fechaEvento)
+    const bd = {reason: motivo, correo: evento.correo, fecha: fechaFormateada};
+    const res = await fetch(`http://localhost:3000/rejectEvent/${encodeURIComponent(idEvento)}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bd),
+    });
+    const data = await res.json();
+    return true;
+  } catch (error) {
+    console.log("Error: "+error);
+    return false;
+  }
+}
+
+
