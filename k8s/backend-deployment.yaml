@@ -40,4 +40,4 @@ spec:
             cpu: "200m"     # Límite máximo de 0.2 de un núcleo
             memory: "256Mi" # Límite máximo de 256 Megabytes
             
-        imagePullPolicy: Never 
+        

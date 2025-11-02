@@ -9,6 +9,11 @@ export const eventSchema = new mongoose.Schema({
     fechaEvento: { type: Date, required: true },
     estado: { type: String, required: true, enum: ["pendiente", "pago pendiente", "aprobado", "cancelado", "rechazado"]
         , default: "pendiente" },
+    idUsuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false
+    },
 });
 
 export const Event = mongoose.model("Event", eventSchema);
