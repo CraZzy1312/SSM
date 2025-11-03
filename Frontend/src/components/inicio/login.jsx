@@ -80,7 +80,9 @@ export const Login = ({ setUserAuthenticated, setAdminAuthenticated }) => {
             />
           </div>
 
-          <p className="forgot-password">Olvidé mi contraseña</p>
+         <p className="forgot-password" onClick={() => navigate("/forgot-password")}>
+  Olvidé mi contraseña
+</p>
 
           <button className="btn-primary" onClick={validarDatos}>
             Iniciar Sesión

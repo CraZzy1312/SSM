@@ -13,6 +13,7 @@ import PanelInformacion from "./components/common/PanelInformacion";
 import NotFound from "./components/common/NotFound.jsx";
 import Reservas from "./pages/Reservas";
 import MisReservas from "./pages/MisReservas";
+import ForgotPassword from "./components/inicio/ForgotPassword.jsx";
 
 
 import { getAllEvents } from "./funciones.js";
@@ -47,6 +48,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<LandingPage />} />
         <Route
           path="/login"
