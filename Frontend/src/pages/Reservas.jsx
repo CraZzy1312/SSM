@@ -1,8 +1,8 @@
 // src/pages/Reservas.jsx
 import { useEffect, useState } from "react";
 import Header from "../components/common/Header";
-import CalendarCombo from "../components/calendar/CalendarCombo";
 import { getAllEvents } from "../funciones";
+import Formulario from "../components/reservas/Formulario";
 
 const Reservas = ({ isUser = false, handleCerrarSesion }) => {
   const [eventos, setEventos] = useState([]);
@@ -16,17 +16,21 @@ const Reservas = ({ isUser = false, handleCerrarSesion }) => {
     fetchEvents();
   }, [recargar]);
 
+  const actualizarReservas = () => {
+    setRecargar((prev) => !prev);
+  };
+
   return (
     <div>
       <Header
-        IS={!isUser}   // Muestra "Iniciar Sesión" solo si NO es usuario
-        CS={isUser}    // Muestra "Cerrar Sesión" si es usuario
-        MR={isUser}    // Muestra "Mis Reservas" si es usuario
+        IS={!isUser}
+        CS={isUser}
+        MR={isUser}
         handleCerrarSesion={handleCerrarSesion}
       />
       <div style={{ padding: "2rem" }}>
         <h2>Reservas</h2>
-        <CalendarCombo eventos={eventos} />
+        <Formulario onReservaCreada={actualizarReservas} />
       </div>
     </div>
   );
