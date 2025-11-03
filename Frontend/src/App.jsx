@@ -11,6 +11,7 @@ import Login from "./components/inicio/login";
 import Registro from "./components/inicio/registro";
 import PanelInformacion from "./components/common/PanelInformacion";
 import NotFound from "./components/common/NotFound.jsx";
+import Reservas from "./pages/Reservas";
 
 import { getAllEvents } from "./funciones.js";
 
@@ -83,15 +84,13 @@ function App() {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/user/misreservas"
+        <Route
+        path="/reservas"
         element={
-          <ProtectedRoute isAuthenticated={userAuthenticated}>
-            <div style={{ padding: "2rem" }}>
-              <h2>Mis Reservas</h2>
-              <p>Aquí irán las reservas del usuario.</p>
-            </div>
-          </ProtectedRoute>
+          <Reservas
+            isUser={userAuthenticated}
+            handleCerrarSesion={handleCerrarSesion}
+          />
         }
       />
         <Route
@@ -116,6 +115,7 @@ function App() {
       </Routes>
     </Router>
   );
+  
 }
 
 export default App;

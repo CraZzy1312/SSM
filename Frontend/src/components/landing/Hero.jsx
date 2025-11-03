@@ -1,12 +1,17 @@
+// src/components/landing/Hero.jsx
+import { useNavigate } from "react-router-dom";
 import heroImg from "../../assets/heroImg.png";
 import "../../css/Hero.css";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleReservarClick = () => {
+    navigate("/reservas"); // Redirige a la página de reservas
+  };
+
   return (
-    <div
-      className="hero"
-      style={{ backgroundImage: `url(${heroImg})` }}
-    >
+    <div className="hero" style={{ backgroundImage: `url(${heroImg})` }}>
       <div className="hero-overlay" />
 
       <div className="hero-content">
@@ -21,7 +26,9 @@ const Hero = () => {
           optimizando el uso del espacio disponible.
         </p>
 
-        <button className="hero-button">Reservar</button>
+        <button className="hero-button" onClick={handleReservarClick}>
+          Reservar
+        </button>
       </div>
     </div>
   );
