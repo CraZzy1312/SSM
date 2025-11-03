@@ -24,9 +24,10 @@ function App() {
   const [recargar, setRecargar] = useState(false);
 
   // Funcion para cerrar sesión (setea las variables en false)
-  const handleCerrarSesion = () => {
+    const handleCerrarSesion = () => {
     setAdminAuthenticated(false);
     setUserAuthenticated(false);
+    window.location.href = "/login"; // Redirige inmediatamente al inicio
   };
 
   // Carga los eventos de la bd a la variable eventos
@@ -71,14 +72,28 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/user"
-          element={
-            <ProtectedRoute isAuthenticated={userAuthenticated}>
-              "Usuario registrado"
-            </ProtectedRoute>
-          }
-        />
+              <Route
+        path="/user"
+        element={
+          <ProtectedRoute isAuthenticated={userAuthenticated}>
+            <LandingPage
+              isUser={true}
+              handleCerrarSesion={handleCerrarSesion}
+            />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user/misreservas"
+        element={
+          <ProtectedRoute isAuthenticated={userAuthenticated}>
+            <div style={{ padding: "2rem" }}>
+              <h2>Mis Reservas</h2>
+              <p>Aquí irán las reservas del usuario.</p>
+            </div>
+          </ProtectedRoute>
+        }
+      />
         <Route
           path="/informacion-evento"
           element={
