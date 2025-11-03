@@ -143,4 +143,25 @@ export const rejectSolicitud = async (idEvento, newState, motivo) => {
   }
 }
 
+export const crearEvento = async (evento) => {
+  try {
+    const res = await fetch("http://localhost:3000/createEvent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(evento),
+    });
 
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      const data = await res.json();
+      return data;
+    } else {
+      const text = await res.text();
+      console.error("Respuesta no JSON:", text);
+      return { success: false, message: "Respuesta inválida del servidor" };
+    }
+  } catch (error) {
+    alert("Error: " + error);
+    return false;
+  }
+};

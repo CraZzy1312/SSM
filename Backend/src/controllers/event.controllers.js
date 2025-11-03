@@ -29,6 +29,22 @@ export const getAllEvents = async (req, res) => {
     }
 };
 
+export const getAllEventsUser = async (req, res) => {
+      const { idUser } = req.params;
+      let result = []
+      try {
+            const event = await Event.find( { idUsuario: idUser }).select("_id fechaEvento");
+            if (event){
+               result = event;
+            }
+            return res.status(200).json({success: true, message: "Eventos encontrados" , data: result });
+      }
+      catch(error){
+         res.status(400).json({ success: false, message: error.message || "Ocurrio un error al obtener un evento"});
+
+      }
+};
+
 export const getDataOfEvent = async (req, res) => {
       const { id } = req.params;
       try {

@@ -1,0 +1,79 @@
+.formulario_container {
+  background-color: #2c444c;
+  border-radius: 30px;
+  padding: 25px 30px;
+  color: white;
+  width: 70%;
+  height: 70vh; /* igual que el calendario */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 60px; /* separa del calendario */
+}
+
+.form_titulo {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.form_contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form_contenido label {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.form_contenido input,
+.form_contenido textarea {
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form_contenido textarea {
+  resize: none;
+  min-height: 80px; /* más espacio para la descripción */
+  margin-bottom: 8px;
+}
+
+.form_contenido button[type="submit"],
+.btn_volver {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 8px; /* más pequeños */
+  font-size: 14px;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Botón enviar */
+.form_contenido button[type="submit"] {
+  background-color: #2563eb;
+  color: white;
+}
+
+.form_contenido button[type="submit"]:hover {
+  background-color: #1e4ed8;
+}
+
+/* Botón volver */
+.btn_volver {
+  background-color: #597ebe;
+  color: white;
+  margin-top: 5px;
+}
+
+.btn_volver:hover {
+  background-color: #4a6bb0;
+}

@@ -11,6 +11,9 @@ import Login from "./components/inicio/login";
 import Registro from "./components/inicio/registro";
 import PanelInformacion from "./components/common/PanelInformacion";
 import NotFound from "./components/common/NotFound.jsx";
+import Reservas from "./pages/Reservas";
+import ForgotPassword from "./components/inicio/ForgotPassword.jsx";
+
 
 import { getAllEvents } from "./funciones.js";
 
@@ -24,9 +27,10 @@ function App() {
   const [recargar, setRecargar] = useState(false);
 
   // Funcion para cerrar sesión (setea las variables en false)
-  const handleCerrarSesion = () => {
+    const handleCerrarSesion = () => {
     setAdminAuthenticated(false);
     setUserAuthenticated(false);
+    window.location.href = "/login"; // Redirige inmediatamente al inicio
   };
 
   // Carga los eventos de la bd a la variable eventos
@@ -43,6 +47,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<LandingPage />} />
         <Route
           path="/login"
@@ -71,14 +76,26 @@ function App() {
             </ProtectedRoute>
           }
         />
+              <Route
+        path="/user"
+        element={
+          <ProtectedRoute isAuthenticated={userAuthenticated}>
+            <LandingPage
+              isUser={true}
+              handleCerrarSesion={handleCerrarSesion}
+            />
+          </ProtectedRoute>
+        }
+      />
         <Route
-          path="/user"
-          element={
-            <ProtectedRoute isAuthenticated={userAuthenticated}>
-              "Usuario registrado"
-            </ProtectedRoute>
-          }
-        />
+        path="/reservas"
+        element={
+          <Reservas
+            isUser={userAuthenticated}
+            handleCerrarSesion={handleCerrarSesion}
+          />
+        }
+      />
         <Route
           path="/informacion-evento"
           element={
@@ -101,6 +118,7 @@ function App() {
       </Routes>
     </Router>
   );
+  
 }
 
 export default App;
