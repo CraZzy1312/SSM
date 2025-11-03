@@ -1,8 +1,7 @@
-// src/pages/Reservas.jsx
 import { useEffect, useState } from "react";
 import Header from "../components/common/Header";
 import { getAllEvents } from "../funciones";
-import Formulario from "../components/reservas/Formulario";
+import CalendarioFormulario2 from "../components/reservas/CalendarioFormulario2";
 
 const Reservas = ({ isUser = false, handleCerrarSesion }) => {
   const [eventos, setEventos] = useState([]);
@@ -30,7 +29,10 @@ const Reservas = ({ isUser = false, handleCerrarSesion }) => {
       />
       <div style={{ padding: "2rem" }}>
         <h2>Reservas</h2>
-        <Formulario onReservaCreada={actualizarReservas} />
+        <CalendarioFormulario2
+          eventos={eventos}
+          onReservaCreada={actualizarReservas}
+        />
       </div>
     </div>
   );

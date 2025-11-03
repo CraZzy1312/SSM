@@ -1,7 +1,7 @@
-// src/components/reservas/Formulario.jsx
 import { useState, useEffect } from "react";
 import { crearEvento, validarCorreo, getAllEvents } from "../../funciones";
 import "../../css/Formulario.css";
+import { useNavigate } from "react-router-dom";
 
 function Formulario({ onReservaCreada }) {
   const [formData, setFormData] = useState({
@@ -14,14 +14,24 @@ function Formulario({ onReservaCreada }) {
 
   const [loading, setLoading] = useState(false);
   const [fechasOcupadas, setFechasOcupadas] = useState([]);
+  const navigate = useNavigate();
 
-  // Cargar todas las fechas de eventos existentes
+  // ✅ Función segura para convertir cualquier fecha a "YYYY-MM-DD" local
+  const toLocalDateString = (fecha) => {
+    const date = new Date(fecha);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   useEffect(() => {
     const cargarFechas = async () => {
       try {
         const res = await getAllEvents();
-        if (res?.success) {
-          const fechas = res.data.map(evento => evento.fechaEvento);
+        if (res?.success && Array.isArray(res.data)) {
+          // 🔒 Convertimos todas las fechas a formato local sin importar zona
+          const fechas = res.data.map((evento) => toLocalDateString(evento.fechaEvento));
           setFechasOcupadas(fechas);
         }
       } catch (error) {
@@ -51,23 +61,27 @@ function Formulario({ onReservaCreada }) {
       return;
     }
 
-    // Validar si la fecha ya está ocupada
-    if (fechasOcupadas.includes(formData.fechaEvento)) {
+    const fechaSeleccionada = toLocalDateString(formData.fechaEvento);
+
+    // ✅ Comparamos solo por fecha local exacta
+    const ocupado = fechasOcupadas.some(
+      (f) => toLocalDateString(f) === fechaSeleccionada
+    );
+
+    if (ocupado) {
       alert("Ya hay un evento en esa fecha, por favor selecciona otra.");
       return;
     }
 
     setLoading(true);
-
     try {
-      // Agregar fechaSolicitud antes de enviar al backend
       const dataConFechaSolicitud = {
         ...formData,
+        fechaEvento: new Date(formData.fechaEvento + "T00:00:00").toISOString(),
         fechaSolicitud: new Date().toISOString(),
       };
 
       const resultado = await crearEvento(dataConFechaSolicitud);
-
       if (resultado && resultado.success) {
         alert("Solicitud enviada exitosamente");
         setFormData({
@@ -77,7 +91,7 @@ function Formulario({ onReservaCreada }) {
           descripcionEvento: "",
           fechaEvento: "",
         });
-        onReservaCreada?.(); // recarga lista si hace falta
+        onReservaCreada?.();
       } else {
         alert("Error al enviar la solicitud: " + (resultado?.message || ""));
       }
@@ -87,6 +101,8 @@ function Formulario({ onReservaCreada }) {
       setLoading(false);
     }
   };
+
+  const volverInicio = () => navigate("/user");
 
   return (
     <div className="formulario_container">
@@ -132,11 +148,15 @@ function Formulario({ onReservaCreada }) {
           name="descripcionEvento"
           value={formData.descripcionEvento}
           onChange={handleChange}
-          rows="4"
+          rows="3"
         />
 
         <button type="submit" disabled={loading}>
           {loading ? "Enviando..." : "Enviar solicitud"}
+        </button>
+
+        <button type="button" className="btn_volver" onClick={volverInicio}>
+          Volver al inicio
         </button>
       </form>
     </div>
