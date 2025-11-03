@@ -2,7 +2,8 @@ import { Router } from "express";
 import { 
     loginUser,
     singupUser,
-    changePassword
+    changePassword,
+    forgetPassword
 } from "../controllers/login.controllers.js";
 import { authenticateToken } from "../middlewares/auth.middleware.js";
 
@@ -12,5 +13,6 @@ const router = Router();
 router.post("/login", loginUser); // Iniciar sesión
 router.post("/singup", singupUser); // Registrar usuario
 router.post("/change-password", authenticateToken, changePassword); // Cambiar contraseña
+router.post("/recover-password", forgetPassword);
 
 export default router;
