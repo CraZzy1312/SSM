@@ -146,7 +146,7 @@ export default function Calendario({ events = [{}] }) {
     const isCanceled = events.some(
       (event) =>
         isSameDay(new Date(event.fechaEvento), date) &&
-        event.estado === "Rechazado"
+        event.estado === "rechazado"
     );
 
     const isNotPaid = events.some(
@@ -232,10 +232,12 @@ export default function Calendario({ events = [{}] }) {
         date={currentDate} // permite cambiar de mes
         onSelectSlot={(slotInfo) => {
           const eventoDia = events.find((ev) =>
-            isSameDay(
-              normalizarFecha(ev.fechaEvento),
-              normalizarFecha(slotInfo.start)
-            )
+            ["Solicitud", "Pago pendiente", "Reservado"].includes(ev.estado)
+              ? isSameDay(
+                  normalizarFecha(ev.fechaEvento),
+                  normalizarFecha(slotInfo.start)
+                )
+              : null
           );
           if (eventoDia) {
             localStorage.removeItem("evento");

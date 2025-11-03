@@ -22,7 +22,7 @@ export const createEvent = async (req, res) => {
 // Obtiene todas las solicitudes de eventos desde la base de datos
 export const getAllEvents = async (req, res) => {
     try {
-         const events = await Event.find();
+         const events = await Event.find({estado: {$in: ["Solicitud", "Pago pendiente", "Reservado"]}});
          res.json({ success: true, data: events });
     } catch (error) {
          res.status(500).json({ success: false, message: error.message || "Ocurrió un error al obtener las solicitudes de eventos" });
