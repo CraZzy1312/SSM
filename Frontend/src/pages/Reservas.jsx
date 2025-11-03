@@ -1,7 +1,21 @@
 // src/pages/Reservas.jsx
+import { useEffect, useState } from "react";
 import Header from "../components/common/Header";
+import CalendarCombo from "../components/calendar/CalendarCombo";
+import { getAllEvents } from "../funciones";
 
 const Reservas = ({ isUser = false, handleCerrarSesion }) => {
+  const [eventos, setEventos] = useState([]);
+  const [recargar, setRecargar] = useState(false);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const data = await getAllEvents();
+      setEventos(data);
+    };
+    fetchEvents();
+  }, [recargar]);
+
   return (
     <div>
       <Header
@@ -12,7 +26,7 @@ const Reservas = ({ isUser = false, handleCerrarSesion }) => {
       />
       <div style={{ padding: "2rem" }}>
         <h2>Reservas</h2>
-        <p>Aquí podrás hacer tus reservas aunque no hayas iniciado sesión.</p>
+        <CalendarCombo eventos={eventos} />
       </div>
     </div>
   );
