@@ -9,64 +9,64 @@ import {
   registrarUsuario,
 } from "../../funciones";
 
-const validar_datos = async () => {
-  // Validacion del nombre
-  var nombre = document.getElementById("name").value;
-  if (nombre == "") {
-    alert("Ingrese su nombre");
-    return;
-  }
-
-  // Validacion de correo
-  var email = document.getElementById("email").value;
-  if (email == "") {
-    alert("Por favor, ingrese el correo");
-    return;
-  }
-  if (!validarCorreo(email) == true) {
-    alert("El formato del correo no es válido");
-    return;
-  }
-  // Validación contraseñas
-  var password1 = document.getElementById("password1").value;
-  var password2 = document.getElementById("password2").value;
-
-  if (!password1 || !password2) {
-    alert("Ingrese las dos contraseñas");
-
-    return;
-  }
-
-  if (password1 != password2) {
-    alert("Las contraseñas tienen que ser iguales");
-    return;
-  }
-
-  const existe = await usuarioExistente(email);
-  if (existe) {
-    alert("Ya existe el usuario");
-    return;
-  }
-
-  const registrado = await registrarUsuario(email, password1, nombre);
-  if (registrado) {
-    alert("Se registró el usuario correctamente");
-
-    // Inicia sesión con las credenciales creadas
-    const login = await iniciarSesion(email, password1);
-    const idUsuario = JSON.parse(localStorage.getItem("user")).data.id_user;
-    alert(idUsuario);
-
-    // Logica para guardar informacion del usuario en el navegador
-
-    navigate("/user");
-  } else {
-    alert("Hubo un error al registrar");
-  }
-};
-
 export const Register = () => {
   const navigate = useNavigate();
+
+  const validar_datos = async () => {
+    // Validacion del nombre
+    var nombre = document.getElementById("name").value;
+    if (nombre == "") {
+      alert("Ingrese su nombre");
+      return;
+    }
+
+    // Validacion de correo
+    var email = document.getElementById("email").value;
+    if (email == "") {
+      alert("Por favor, ingrese el correo");
+      return;
+    }
+    if (!validarCorreo(email) == true) {
+      alert("El formato del correo no es válido");
+      return;
+    }
+    // Validación contraseñas
+    var password1 = document.getElementById("password1").value;
+    var password2 = document.getElementById("password2").value;
+
+    if (!password1 || !password2) {
+      alert("Ingrese las dos contraseñas");
+
+      return;
+    }
+
+    if (password1 != password2) {
+      alert("Las contraseñas tienen que ser iguales");
+      return;
+    }
+
+    const existe = await usuarioExistente(email);
+    if (existe) {
+      alert("Ya existe el usuario");
+      return;
+    }
+
+    const registrado = await registrarUsuario(email, password1, nombre);
+    if (registrado) {
+      alert("Se registró el usuario correctamente");
+
+      // Inicia sesión con las credenciales creadas
+      const login = await iniciarSesion(email, password1);
+      const idUsuario = JSON.parse(localStorage.getItem("user")).data.id_user;
+
+      // Logica para guardar informacion del usuario en el navegador
+
+      navigate("/user");
+    } else {
+      alert("Hubo un error al registrar");
+    }
+  };
+
   return (
     <div className="register-page">
       <div className="register-container">

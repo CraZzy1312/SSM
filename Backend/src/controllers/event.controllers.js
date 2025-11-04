@@ -4,7 +4,7 @@ import nodemailer from "nodemailer"
 export const createEvent = async (req, res) => {
    const { fechaEvento } = req.body;
    try{
-      const existingEvent = await Event.findOne({ fechaEvento });
+      const existingEvent = await Event.findOne({ fechaEvento: fechaEvento, estado: {$in: ["Solicitud", "Pago pendiente", "Reservado"]} });
       if (existingEvent) {
          return res.status(400).json({ success: false, message: "Ya existe un evento programado para esta fecha" });
       }
@@ -32,7 +32,7 @@ export const getAllEvents = async (req, res) => {
 export const getAllEventsUser = async (req, res) => {
   const { correo } = req.params;
   try {
-    const events = await Event.find({ correo: correo }).select(
+    const events = await Event.find({ correo: correo}).select(
       "_id fechaEvento estado"
     );
 

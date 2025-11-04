@@ -1,13 +1,7 @@
 import "../../css/CalendarCombo.css";
 import React, { useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import {
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  isSameDay,
-} from "date-fns";
+import { format, parse, startOfWeek, getDay, isSameDay } from "date-fns";
 import { es } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import EstadosCliente from "./EstadosCliente";
@@ -116,10 +110,10 @@ function CalendarioUsuario({ events = [] }) {
 
   // Mapa de colores según estado
   const estadoColorMap = {
-    "En Proceso": "#facc15",
-    "Pago pendiente": "#facc15",
-    "Confirmado": "#4ade80",
-    "Cancelada": "#9ca3af",
+    Solicitud: "#F3F871",
+    "Pago pendiente": "#78CAD2",
+    Reservado: "#7EEA7E",
+    rechazado: "#F58284",
   };
 
   // Función para pintar los días
@@ -134,7 +128,8 @@ function CalendarioUsuario({ events = [] }) {
     };
 
     if (evento) {
-      style.backgroundColor = estadoColorMap[evento.estado] || style.backgroundColor;
+      style.backgroundColor =
+        estadoColorMap[evento.estado] || style.backgroundColor;
     }
 
     return { style };

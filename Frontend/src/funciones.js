@@ -168,7 +168,7 @@ export const crearEvento = async (evento) => {
 
 export const getAllEventsUser = async (correo) => {
   try {
-    const res = await fetch(`http://localhost:3000/getAllEventsUser"${correo}`);
+    const res = await fetch(`http://localhost:3000/getAllEventsUser/${correo}`);
     const data = await res.json();
     if (data.success) {
       return data.data; // array de eventos 

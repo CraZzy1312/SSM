@@ -9,9 +9,9 @@ const LandingPage = ({ isUser = false, handleCerrarSesion }) => {
   return (
     <div className="landing-page">
       <Header
-        IS={!isUser}           // Muestra "Iniciar Sesión" solo si NO es usuario
-        CS={isUser}            // Muestra "Cerrar Sesión" si es usuario
-        MR={isUser}            // Muestra "Mis Reservas" si es usuario
+        IS={!isUser} // Muestra "Iniciar Sesión" solo si NO es usuario
+        CS={isUser} // Muestra "Cerrar Sesión" si es usuario
+        MR={isUser} // Muestra "Mis Reservas" si es usuario
         handleCerrarSesion={handleCerrarSesion}
       />
       <Hero />

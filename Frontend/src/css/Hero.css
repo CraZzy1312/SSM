@@ -18,8 +18,8 @@
 
 .hero-content {
   position: absolute; /* cambiar de relative a absolute */
-  top: 50%;           /* posicion vertical desde el top */
-  left: 80px;         /* espacio desde el borde izquierdo */
+  top: 50%; /* posicion vertical desde el top */
+  left: 80px; /* espacio desde el borde izquierdo */
   transform: translateY(-50%); /* centra verticalmente */
   display: flex;
   flex-direction: column;
