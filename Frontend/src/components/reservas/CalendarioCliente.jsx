@@ -7,11 +7,10 @@ import {
   startOfWeek,
   getDay,
   isSameDay,
-  isToday,
 } from "date-fns";
 import { es } from "date-fns/locale";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import EstadosCliente from "./EstadosCliente"; //  Importa  componente de estados
+import EstadosCliente from "./EstadosCliente";
 
 // Configuración del localizer
 const locales = { "es-CR": es };
@@ -37,7 +36,7 @@ const messages = {
   event: "Evento",
 };
 
-// Toolbar personalizado (solo navegación)
+// Toolbar personalizado
 function CustomToolbar({ label, onNavigate }) {
   return (
     <div
@@ -115,36 +114,31 @@ const CustomHeader = ({ label }) => (
 function CalendarioUsuario({ events = [] }) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  // Función para pintar los días
-const dayPropGetter = (date) => {
-  const evento = events.find((event) =>
-    isSameDay(new Date(event.fechaEvento), date)
-  );
-
-  const isCurrentMonth = date.getMonth() === currentDate.getMonth();
-  let style = {
-    backgroundColor: isCurrentMonth ? "white" : "#f0f0f0",
+  // Mapa de colores según estado
+  const estadoColorMap = {
+    "En Proceso": "#facc15",
+    "Pago pendiente": "#facc15",
+    "Confirmado": "#4ade80",
+    "Cancelada": "#9ca3af",
   };
 
-  if (evento) {
-    switch (evento.estado) {
-      case "Solicitud":
-        style.backgroundColor = "#facc15"; // amarillo
-        break;
-      case "Pago pendiente":
-        style.backgroundColor = "#f87171"; // rojo
-        break;
-      case "Reservado":
-        style.backgroundColor = "#4ade80"; // verde
-        break;
-      case "Cancelada":
-        style.backgroundColor = "#9ca3af"; // gris
-        break;
-    }
-  }
+  // Función para pintar los días
+  const dayPropGetter = (date) => {
+    const evento = events.find((event) =>
+      isSameDay(new Date(event.start), date)
+    );
 
-  return { style };
-};
+    const isCurrentMonth = date.getMonth() === currentDate.getMonth();
+    let style = {
+      backgroundColor: isCurrentMonth ? "white" : "#f0f0f0",
+    };
+
+    if (evento) {
+      style.backgroundColor = estadoColorMap[evento.estado] || style.backgroundColor;
+    }
+
+    return { style };
+  };
 
   return (
     <div
@@ -190,6 +184,14 @@ const dayPropGetter = (date) => {
 
 // NUEVO COMPONENTE FINAL — calendario + estados
 export default function CalendarioEstadosCliente({ eventos }) {
+  // Formatear eventos para react-big-calendar
+  const eventosFormateados = eventos.map((ev) => ({
+    ...ev,
+    start: new Date(ev.fechaEvento),
+    end: new Date(ev.fechaEvento),
+    title: ev.estado,
+  }));
+
   return (
     <div
       className="calendar_combo_container"
@@ -209,7 +211,7 @@ export default function CalendarioEstadosCliente({ eventos }) {
           justifyContent: "center",
         }}
       >
-        <CalendarioUsuario events={eventos} />
+        <CalendarioUsuario events={eventosFormateados} />
       </div>
 
       {/* Estados del cliente */}
@@ -226,4 +228,3 @@ export default function CalendarioEstadosCliente({ eventos }) {
     </div>
   );
 }
-
