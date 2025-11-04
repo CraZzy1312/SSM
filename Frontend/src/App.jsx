@@ -99,9 +99,13 @@ function App() {
       />
       <Route
       path="/user/misreservas"
-      element={<MisReservas />}
+      element={
+        <MisReservas
+          isUser={userAuthenticated}
+          handleCerrarSesion={handleCerrarSesion}
+        />
+      }
     />
-
         <Route
           path="/informacion-evento"
           element={

@@ -168,10 +168,10 @@ export const crearEvento = async (evento) => {
 
 export const getAllEventsUser = async (idUser) => {
   try {
-    const res = await fetch(`/api/eventos/usuario/${idUser}`); // ajusta la ruta si tu backend usa otra
+    const res = await fetch(`/api/eventos/usuario/${idUser}`);
     const data = await res.json();
     if (data.success) {
-      return data.data; // devolvemos solo el array de eventos
+      return data.data; // array de eventos
     } else {
       console.error("Error al obtener eventos del usuario:", data.message);
       return [];
@@ -181,3 +181,4 @@ export const getAllEventsUser = async (idUser) => {
     return [];
   }
 };
+

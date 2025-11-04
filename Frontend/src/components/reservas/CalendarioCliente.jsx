@@ -116,27 +116,35 @@ function CalendarioUsuario({ events = [] }) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   // Función para pintar los días
-  const dayPropGetter = (date) => {
-    const isOcupado = events.some((event) =>
-      isSameDay(new Date(event.fechaEvento), date)
-    );
+const dayPropGetter = (date) => {
+  const evento = events.find((event) =>
+    isSameDay(new Date(event.fechaEvento), date)
+  );
 
-    const isCurrentMonth = date.getMonth() === currentDate.getMonth();
-
-    let style = {
-      backgroundColor: isCurrentMonth ? "white" : "#f0f0f0",
-    };
-
-    if (isOcupado) {
-      style = { ...style, backgroundColor: "#d3d3d3" }; // gris para ocupado
-    }
-
-    if (isToday(date)) {
-      style = { ...style, border: "1px solid #001f67ff" };
-    }
-
-    return { style };
+  const isCurrentMonth = date.getMonth() === currentDate.getMonth();
+  let style = {
+    backgroundColor: isCurrentMonth ? "white" : "#f0f0f0",
   };
+
+  if (evento) {
+    switch (evento.estado) {
+      case "Solicitud":
+        style.backgroundColor = "#facc15"; // amarillo
+        break;
+      case "Pago pendiente":
+        style.backgroundColor = "#f87171"; // rojo
+        break;
+      case "Reservado":
+        style.backgroundColor = "#4ade80"; // verde
+        break;
+      case "Cancelada":
+        style.backgroundColor = "#9ca3af"; // gris
+        break;
+    }
+  }
+
+  return { style };
+};
 
   return (
     <div
