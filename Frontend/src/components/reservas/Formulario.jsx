@@ -16,7 +16,7 @@ function Formulario({ onReservaCreada }) {
   const [fechasOcupadas, setFechasOcupadas] = useState([]);
   const navigate = useNavigate();
 
-  // ✅ Función segura para convertir cualquier fecha a "YYYY-MM-DD" local
+  //  Función segura para convertir cualquier fecha a "YYYY-MM-DD" local
   const toLocalDateString = (fecha) => {
     const date = new Date(fecha);
     const year = date.getFullYear();
@@ -63,7 +63,7 @@ function Formulario({ onReservaCreada }) {
 
     const fechaSeleccionada = toLocalDateString(formData.fechaEvento);
 
-    // ✅ Comparamos solo por fecha local exacta
+    //  Comparamos solo por fecha local exacta
     const ocupado = fechasOcupadas.some(
       (f) => toLocalDateString(f) === fechaSeleccionada
     );
