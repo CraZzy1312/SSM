@@ -141,9 +141,10 @@ function CalendarioUsuario({ events = [] }) {
   return (
     <div
       style={{
-        height: "70vh",
+        // Altura fija y compacta para eliminar el scroll
+        height: "500px", 
         width: "100%",
-        padding: "20px",
+        padding: "10px", // Padding reducido
         backgroundColor: "#2C444C",
         borderRadius: "30px",
       }}
@@ -154,7 +155,7 @@ function CalendarioUsuario({ events = [] }) {
         culture="es-CR"
         startAccessor="start"
         endAccessor="end"
-        style={{ height: "95%", width: "100%" }}
+        style={{ height: "93%", width: "100%" }}
         messages={messages}
         views={["month"]}
         selectable={false}
@@ -189,7 +190,8 @@ export default function CalendarioFormulario2({ eventos, onReservaCreada }) {
         justifyContent: "center",
         alignItems: "stretch",
         gap: "2rem",
-        padding: "2rem 0",
+        // Padding vertical a cero para subir los elementos
+        padding: "0 0", 
       }}
     >
       {/* Calendario */}
@@ -199,7 +201,10 @@ export default function CalendarioFormulario2({ eventos, onReservaCreada }) {
 
       {/* Formulario */}
       <div style={{ flex: "1 1 50%" }}>
-        <Formulario onReservaCreada={onReservaCreada} />
+        {/* Forzamos la altura del contenedor del formulario a 500px */}
+        <div style={{ height: "500px" }}> 
+            <Formulario onReservaCreada={onReservaCreada} />
+        </div>
       </div>
     </div>
   );
