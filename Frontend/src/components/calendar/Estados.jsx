@@ -13,10 +13,6 @@ function Estados() {
         <div>Solicitud</div>
       </div>
       <div className="estado_item">
-        <img src={rechazado} alt="" className="circle_color" />
-        <div>Rechazado</div>
-      </div>
-      <div className="estado_item">
         <img src={pago_pendiente} alt="" className="circle_color" />
         <div>Pago pendiente</div>
       </div>
