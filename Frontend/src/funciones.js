@@ -171,7 +171,7 @@ export const getAllEventsUser = async (idUser) => {
     const res = await fetch(`/api/eventos/usuario/${idUser}`);
     const data = await res.json();
     if (data.success) {
-      return data.data; // array de eventos
+      return data.data; // array de eventos listo
     } else {
       console.error("Error al obtener eventos del usuario:", data.message);
       return [];

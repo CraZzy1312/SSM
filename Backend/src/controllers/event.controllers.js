@@ -50,7 +50,6 @@ export const getAllEventsUser = async (req, res) => {
   }
 };
 
-
 export const getDataOfEvent = async (req, res) => {
       const { id } = req.params;
       try {
