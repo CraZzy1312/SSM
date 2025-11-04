@@ -30,9 +30,9 @@ export const getAllEvents = async (req, res) => {
 };
 
 export const getAllEventsUser = async (req, res) => {
-  const { idUser } = req.params;
+  const { correo } = req.params;
   try {
-    const events = await Event.find({ idUsuario: idUser }).select(
+    const events = await Event.find({ correo: correo }).select(
       "_id fechaEvento estado"
     );
 

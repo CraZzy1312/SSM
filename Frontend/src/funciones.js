@@ -166,12 +166,12 @@ export const crearEvento = async (evento) => {
   }
 };
 
-export const getAllEventsUser = async (idUser) => {
+export const getAllEventsUser = async (correo) => {
   try {
-    const res = await fetch(`/api/eventos/usuario/${idUser}`);
+    const res = await fetch(`http://localhost:3000/getAllEventsUser"${correo}`);
     const data = await res.json();
     if (data.success) {
-      return data.data; // array de eventos listo
+      return data.data; // array de eventos 
     } else {
       console.error("Error al obtener eventos del usuario:", data.message);
       return [];

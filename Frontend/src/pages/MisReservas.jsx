@@ -3,16 +3,19 @@ import Header from "../components/common/Header";
 import { getAllEventsUser } from "../funciones";
 import CalendarioCliente from "../components/reservas/CalendarioCliente";
 
-const MisReservas = ({ isUser = false, handleCerrarSesion, idUsuario }) => {
+const MisReservas = ({ isUser = false, handleCerrarSesion}) => {
   const [eventos, setEventos] = useState([]);
   const [recargar, setRecargar] = useState(false);
 
   useEffect(() => {
+   const correo =  JSON.parse(localStorage.getItem("user"));
+   console.log("Correo en MisReservas: " + correo);
     const fetchEvents = async () => {
-      if (!idUsuario) return;
+      if (!correo) return;
 
-      const data = await getAllEventsUser(idUsuario);
+      const data = await getAllEventsUser(correo);
 
+      console.log(data)
       // Mapear eventos a formato calendario
       const eventosFormateados = data.map((ev) => ({
         ...ev,
@@ -24,7 +27,7 @@ const MisReservas = ({ isUser = false, handleCerrarSesion, idUsuario }) => {
       setEventos(eventosFormateados);
     };
     fetchEvents();
-  }, [recargar, idUsuario]);
+  }, [recargar]);
 
   const actualizarReservas = () => {
     setRecargar((prev) => !prev);
